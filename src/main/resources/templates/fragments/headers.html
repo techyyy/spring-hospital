@@ -1,0 +1,25 @@
+<div th:fragment="admin_header" class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom box-shadow">
+  <h5 class="my-0 mr-md-auto font-weight-normal" th:text="#{label.admin}"></h5>
+  <nav class="my-2 my-md-0 mr-md-3">
+    <a class="p-2 text-dark" href="/doctors?page=1" th:text="#{label.doctors}"></a>
+    <a class="p-2 text-dark" href="/patients?page=1" th:text="#{label.patients}"></a>
+    <a class="p-2 text-dark" href="/panel" th:text="#{label.admin_panel}"></a>
+    <a class="btn btn-outline-primary" th:text="#{label.log_out}" href="/logout"></a>
+  </nav>
+</div>
+
+<div th:fragment="doctor_header" class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom box-shadow">
+  <h5 class="my-0 mr-md-auto font-weight-normal" th:text="#{label.doctor}"></h5>
+  <nav class="my-2 my-md-0 mr-md-3">
+    <a class="p-2 text-dark" href="/mypatients?page=1" th:text="#{label.my_patients}"></a>
+    <a class="btn btn-outline-primary" href="/logout" th:text="#{label.log_out}"></a>
+  </nav>
+</div>
+
+<div th:fragment="nurse_header" class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom box-shadow">
+  <h5 class="my-0 mr-md-auto font-weight-normal" th:text="#{label.nurse}"></h5>
+  <nav class="my-2 my-md-0 mr-md-3">
+    <a class="p-2 text-dark" href="#" th:text="#{label.appointments}"></a>
+    <a class="btn btn-outline-primary" href="/logout" th:text="#{label.log_out}"></a>
+  </nav>
+</div>

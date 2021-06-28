@@ -1,0 +1,20 @@
+<table th:fragment="patients_card" class="table shadow-lg p-4 mb-5 bg-white rounded" style = "margin-bottom: 100px;">
+  <thead>
+  <tr>
+    <th scope="col" th:text="#{label.doctors_ln}"></th>
+    <th scope="col" th:text="#{label.first_name}"></th>
+    <th scope="col" th:text="#{label.last_name}"></th>
+    <th scope="col" th:text="#{label.diagnosis}"></th>
+    <th scope="col" th:text="#{label.treatment}"></th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr th:each="pa : ${patientsCard}">
+    <td th:text="${{pa.getDoctor().getLastName()}}"></td>
+    <td th:text="${{pa.getPatient().getFirstName()}}"></td>
+    <td th:text="${{pa.getPatient().getLastName()}}"></td>
+    <td th:text="${{pa.getDiagnosis()}}"></td>
+    <td th:text="${{pa.getTreatment()}}"></td>
+  </tr>
+  </tbody>
+</table>

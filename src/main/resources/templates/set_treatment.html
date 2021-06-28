@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head th:insert="fragments/head">
+  <title>Main page</title>
+</head>
+<body>
+<div th:insert="fragments/headers::doctor_header"></div>
+
+<div class="container" style="margin-top: 100px">
+  <div class="col-lg-12">
+    <h2 th:text="#{label.treatment}">T</h2>
+    <br>
+    <br>
+  </div>
+  <div class="col-lg-8 push-lg-4 personal-info">
+    <form th:action="@{/mypatients/save}" th:object="${pa}" method="POST">
+      <input type="hidden" th:field="*{patient}">
+      <input type="hidden" th:field="*{doctor}">
+      <input type="hidden" th:field="*{id}">
+      <input type="hidden" th:field="*{diagnosis}">
+      <div class="form-group row">
+        <div class="col-lg-9">
+          <label for="textarea" th:text="#{label.treatment}"></label>
+          <textarea th:field="*{treatment}" class="form-control rounded-0" id="textarea" rows="10" name="Treatment"></textarea>
+          <button type="submit" class="btn btn-primary" style="margin-top: 10px" th:text="#{button.submit}"></button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
+<div th:insert="fragments/footers::localization_footer"></div>
+
+</body>
+</html>

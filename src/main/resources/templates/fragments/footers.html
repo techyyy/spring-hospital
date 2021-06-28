@@ -1,0 +1,12 @@
+<footer th:fragment="localization_footer" class="d-flex justify-content-center">
+  <div>
+    <form th:action="@{/locale?lang=uk}" method="post">
+      <input alt="" width="20" height="15" type="image" src="https://upload.wikimedia.org/wikipedia/commons/1/17/Flag_of_Ukraine_%28pantone_colors%29.svg"/>
+    </form>
+  </div>
+  <div class="ml-2">
+    <form th:action="@{/locale?lang=en}" method="post">
+      <input alt="" width="20" height="15" type="image" src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/ae/Flag_of_the_United_Kingdom.svg/640px-Flag_of_the_United_Kingdom.svg.png"/>
+    </form>
+  </div>
+</footer>

@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head th:insert="fragments/head">
+    <title>Main page</title>
+</head>
+<body>
+<div th:insert="fragments/headers::doctor_header"></div>
+
+<div class="container-fluid">
+
+    <div class="d-flex justify-content-between">
+        <div class="d-flex">
+            <form th:if="${#httpServletRequest.requestURI} == '/mypatients'"  th:action="@{/mypatients/sort}" method="GET">
+                <input type="hidden" name="parameter" value="patient.lastName"/>
+                <button class="btn btn-sm btn-secondary"><i th:text="#{label.sort_by_alphabet}"></i></button>
+            </form>
+
+            <form th:if="${#httpServletRequest.requestURI} == '/mypatients'" th:action="@{/mypatients/sort}" method="GET">
+                <input type="hidden" name="parameter" value="patient.birthDate"/>
+                <button class="btn btn-sm btn-secondary ml-2"><i th:text="#{label.sort_by_birth_date}"></i></button>
+            </form>
+        </div>
+
+        <div class="d-flex">
+            <form action="/mypatients/search" method="GET">
+                <div class="d-flex">
+                    <div>
+                        <input type="search" name="query" class="form-control rounded" th:placeholder="#{placeholder.search}" aria-label="Search" aria-describedby="search-addon"/>
+                    </div>
+                    <div>
+                        <button id="search-button" type="submit" class="btn btn-secondary ml-1">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <table class="table shadow-lg p-4 mb-5 mt-3 bg-white rounded">
+        <thead>
+        <tr>
+            <th scope="col" th:text="#{label.first_name}"></th>
+            <th scope="col" th:text="#{label.last_name}"></th>
+            <th scope="col" th:text="#{label.birth_date}"></th>
+            <th scope="col" th:text="#{label.operations}"></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="pa : ${pa}">
+            <td th:text="${{pa.patient.firstName}}"></td>
+            <td th:text="${{pa.patient.lastName}}"></td>
+            <td th:text="${{pa.patient.birthDate}}"></td>
+            <td>
+                <a th:href="@{|/mypatients/update?id=${pa.id}|}" class = "btn btn-secondary" th:text="#{label.edit}"></a>
+                <a th:href="@{|/mypatients/card?id=${pa.id}|}" class = "btn btn-secondary" th:text="#{label.hospital_card}"></a>
+                <a th:href="@{|/mypatients/diagnosis?id=${pa.id}|}" class = "btn btn-secondary" th:text="#{label.diagnosis}"></a>
+                <a th:href="@{|/mypatients/treatment?id=${pa.id}|}" class = "btn btn-secondary" th:text="#{label.treatment}"></a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+</div>
+
+<div th:if="${#httpServletRequest.requestURI} == '/patients'" class="row" th:fragment="pagination">
+    <div class="col-md-2"></div>
+    <div class="col-md-8">
+        <nav aria-label="Pagination">
+            <ul class="pagination justify-content-center">
+                <li class="page-item" th:each="pageNumber : ${pageNumbers}" >
+                    <a class="page-link" th:href="@{|/mypatients?page=${pageNumber}|}" th:text=${pageNumber}>1</a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+    <div class="col-md-2"></div>
+</div>
+
+<div th:insert="fragments/footers::localization_footer"></div>
+
+</body>
+</html>
