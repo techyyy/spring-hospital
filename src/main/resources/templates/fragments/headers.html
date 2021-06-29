@@ -6,6 +6,18 @@
     <a class="p-2 text-dark" href="/panel" th:text="#{label.admin_panel}"></a>
     <a class="btn btn-outline-primary" th:text="#{label.log_out}" href="/logout"></a>
   </nav>
+  <div class="d-flex flex-column mt-1">
+    <div>
+      <form th:action="@{/locale?lang=uk}" method="post">
+        <input alt="" width="20" height="15" type="image" src="https://upload.wikimedia.org/wikipedia/commons/1/17/Flag_of_Ukraine_%28pantone_colors%29.svg"/>
+      </form>
+    </div>
+    <div class="">
+      <form th:action="@{/locale?lang=en}" method="post">
+        <input alt="" width="20" height="15" type="image" src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/ae/Flag_of_the_United_Kingdom.svg/640px-Flag_of_the_United_Kingdom.svg.png"/>
+      </form>
+    </div>
+  </div>
 </div>
 
 <div th:fragment="doctor_header" class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom box-shadow">
@@ -14,6 +26,18 @@
     <a class="p-2 text-dark" href="/mypatients?page=1" th:text="#{label.my_patients}"></a>
     <a class="btn btn-outline-primary" href="/logout" th:text="#{label.log_out}"></a>
   </nav>
+  <div class="d-flex flex-column mt-1">
+    <div>
+      <form th:action="@{/locale?lang=uk}" method="post">
+        <input alt="" width="20" height="15" type="image" src="https://upload.wikimedia.org/wikipedia/commons/1/17/Flag_of_Ukraine_%28pantone_colors%29.svg"/>
+      </form>
+    </div>
+    <div class="">
+      <form th:action="@{/locale?lang=en}" method="post">
+        <input alt="" width="20" height="15" type="image" src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/ae/Flag_of_the_United_Kingdom.svg/640px-Flag_of_the_United_Kingdom.svg.png"/>
+      </form>
+    </div>
+  </div>
 </div>
 
 <div th:fragment="nurse_header" class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom box-shadow">
@@ -22,4 +46,16 @@
     <a class="p-2 text-dark" href="#" th:text="#{label.appointments}"></a>
     <a class="btn btn-outline-primary" href="/logout" th:text="#{label.log_out}"></a>
   </nav>
+  <div class="d-flex flex-column mt-1">
+    <div>
+      <form th:action="@{/locale?lang=uk}" method="post">
+        <input alt="" width="20" height="15" type="image" src="https://upload.wikimedia.org/wikipedia/commons/1/17/Flag_of_Ukraine_%28pantone_colors%29.svg"/>
+      </form>
+    </div>
+    <div class="">
+      <form th:action="@{/locale?lang=en}" method="post">
+        <input alt="" width="20" height="15" type="image" src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/ae/Flag_of_the_United_Kingdom.svg/640px-Flag_of_the_United_Kingdom.svg.png"/>
+      </form>
+    </div>
+  </div>
 </div>
