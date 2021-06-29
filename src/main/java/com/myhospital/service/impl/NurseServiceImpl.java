@@ -18,10 +18,7 @@ public class NurseServiceImpl implements NurseService {
     }
 
     @Override
-    @Transactional
     public void saveNurse(Nurse nurse) {
-        String password = nurse.getUser().getPassword();
-        nurse.getUser().setPassword(new Pbkdf2PasswordEncoder().encode(password));
         nurseRepository.save(nurse);
     }
 }

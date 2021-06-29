@@ -42,7 +42,6 @@
   <table class="table shadow-lg p-4 mb-5 mt-3 bg-white rounded">
     <thead>
     <tr>
-      <th scope="col">ID</th>
       <th scope="col" th:text="#{label.first_name}">First name</th>
       <th scope="col" th:text="#{label.last_name}">Last name</th>
       <th scope="col" th:text="#{label.position}">Position</th>
@@ -51,7 +50,6 @@
     </thead>
     <tbody>
     <tr th:each="doctor : ${doctors}">
-      <td th:text="${{doctor.id}}"></td>
       <td th:text="${{doctor.firstName}}"></td>
       <td th:text="${{doctor.lastName}}"></td>
       <td th:text="${{doctor.position}}"></td>

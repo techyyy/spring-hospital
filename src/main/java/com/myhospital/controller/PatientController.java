@@ -4,6 +4,7 @@ import com.myhospital.model.Patient;
 import com.myhospital.model.PatientAssignment;
 import com.myhospital.service.PatientAssignmentService;
 import com.myhospital.service.PatientService;
+import com.myhospital.util.PaginationUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -44,11 +45,7 @@ public class PatientController {
         String sortingParameter = session.getAttribute("sortPatientsBy").toString();
         PageRequest pageable = PageRequest.of(pageNumber - 1, 5, Sort.by(sortingParameter));
         Page<Patient> patientPage = patientService.getPaginatedPatients(pageable);
-        int countOfPages = patientPage.getTotalPages();
-        if(countOfPages > 0) {
-            List<Integer> pageNumbers = IntStream.rangeClosed(1,countOfPages).boxed().collect(Collectors.toList());
-            modelAndView.addObject("pageNumbers", pageNumbers);
-        }
+        PaginationUtils.setNumberOfPages(modelAndView, patientPage);
         modelAndView.addObject("patients", patientPage.getContent());
         return modelAndView;
     }
@@ -104,11 +101,7 @@ public class PatientController {
         PageRequest pageable = PageRequest.of(pageNumber - 1, 5, Sort.by(sortingParameter));
         Long doctorId = getCurrentDoctorId();
         Page<PatientAssignment> patientPage = patientAssignmentService.getPaginatedPatientsAssignments(doctorId, pageable);
-        int countOfPages = patientPage.getTotalPages();
-        if(countOfPages > 0) {
-            List<Integer> pageNumbers = IntStream.rangeClosed(1,countOfPages).boxed().collect(Collectors.toList());
-            modelAndView.addObject("pageNumbers", pageNumbers);
-        }
+        PaginationUtils.setNumberOfPages(modelAndView, patientPage);
         List<PatientAssignment> patientAssignments = patientPage.getContent();
         modelAndView.addObject("pa", patientAssignments);
         return modelAndView;
@@ -119,18 +112,17 @@ public class PatientController {
         ModelAndView modelAndView = new ModelAndView("view_my_patients");
         Long doctorId = getCurrentDoctorId();
         List<PatientAssignment> pa = patientAssignmentService.searchForMyPatients(query, doctorId);
-        System.out.println(pa);
         modelAndView.addObject("pa", pa);
         return modelAndView;
     }
 
     @RequestMapping(value = "/mypatients/update", method = RequestMethod.GET)
     public ModelAndView showUpdateMyPatientForm(@RequestParam("id") Long assignmentId) {
-        ModelAndView mav = new ModelAndView("update_my_patient");
+        ModelAndView modelAndView = new ModelAndView("update_my_patient");
         Long doctorId = getCurrentDoctorId();
         PatientAssignment pa = patientAssignmentService.getPatientAssignmentById(assignmentId, doctorId);
-        mav.addObject("pa", pa);
-        return mav;
+        modelAndView.addObject("pa", pa);
+        return modelAndView;
     }
 
     @RequestMapping(value = "/mypatients/save", method = RequestMethod.POST)

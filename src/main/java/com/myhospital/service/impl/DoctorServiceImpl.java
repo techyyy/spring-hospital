@@ -44,10 +44,7 @@ public class DoctorServiceImpl implements DoctorService {
     }
 
     @Override
-    @Transactional
     public void saveDoctor(Doctor doctor) {
-        String password = doctor.getUser().getPassword();
-        doctor.getUser().setPassword(new Pbkdf2PasswordEncoder().encode(password));
         doctorRepository.save(doctor);
     }
 }

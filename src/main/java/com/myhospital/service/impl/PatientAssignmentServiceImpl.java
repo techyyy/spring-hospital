@@ -41,8 +41,8 @@ public class PatientAssignmentServiceImpl implements PatientAssignmentService {
     }
 
     @Override
-    public void saveMyPatient(PatientAssignment pa) {
-        patientAssignmentRepository.save(pa);
+    public void saveMyPatient(PatientAssignment patientAssignment) {
+        patientAssignmentRepository.save(patientAssignment);
     }
 
 }

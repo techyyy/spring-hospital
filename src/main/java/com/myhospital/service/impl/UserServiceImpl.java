@@ -22,10 +22,14 @@ public class UserServiceImpl implements UserService {
         this.userRepository = userRepository;
     }
 
+    private void writeUserIdInSession(Long id) {
+        session.setAttribute("login_id", id);
+    }
+
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         MyUserDetails userDetails = new MyUserDetails(userRepository.findByUsername(username));
-        session.setAttribute("login_id", userDetails.getId());
+        writeUserIdInSession(userDetails.getId());
         return userDetails;
     }
 }

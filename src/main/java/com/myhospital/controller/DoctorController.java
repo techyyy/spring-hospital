@@ -2,10 +2,12 @@ package com.myhospital.controller;
 
 import com.myhospital.model.Doctor;
 import com.myhospital.service.DoctorService;
+import com.myhospital.util.PaginationUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
+import org.springframework.security.crypto.password.Pbkdf2PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -17,10 +19,7 @@ import org.springframework.web.servlet.view.RedirectView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
-import java.util.stream.IntStream;
 
 @Controller
 public class DoctorController {
@@ -40,11 +39,7 @@ public class DoctorController {
         String sortingParameter = session.getAttribute("sortDoctorsBy").toString();
         PageRequest pageable = PageRequest.of(pageNumber-1, 5, Sort.by(sortingParameter));
         Page<Doctor> doctorPage = doctorService.getPaginatedDoctors(pageable);
-        int countOfPages = doctorPage.getTotalPages();
-        if(countOfPages > 0) {
-            List<Integer> pageNumbers = IntStream.rangeClosed(1,countOfPages).boxed().collect(Collectors.toList());
-            mav.addObject("pageNumbers", pageNumbers);
-        }
+        PaginationUtils.setNumberOfPages(mav, doctorPage);
         mav.addObject("doctors", doctorPage.getContent());
         return mav;
     }
@@ -55,7 +50,6 @@ public class DoctorController {
         Doctor doctor;
         if(op.isPresent()) {
             doctor = op.get();
-            System.out.println(doctor.getPatientAssignmentSet());
             model.addAttribute("doctor", doctor);
         }
         return "update_doctor";
@@ -87,6 +81,8 @@ public class DoctorController {
 
     @RequestMapping(value = "/add/doctor/save", method = RequestMethod.POST)
     public RedirectView insertNewDoctor(@ModelAttribute("doctor") Doctor doctor) {
+        String password = doctor.getUser().getPassword();
+        doctor.getUser().setPassword(new Pbkdf2PasswordEncoder().encode(password));
         doctorService.saveDoctor(doctor);
         return new RedirectView("/doctors?page=1");
     }

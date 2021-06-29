@@ -26,6 +26,8 @@ public class NurseController {
 
     @RequestMapping(value = "/add/nurse/save", method = RequestMethod.POST)
     public RedirectView insertNewNurse(@ModelAttribute("nurse") Nurse nurse) {
+        String password = nurse.getUser().getPassword();
+        nurse.getUser().setPassword(new Pbkdf2PasswordEncoder().encode(password));
         nurseService.saveNurse(nurse);
         return new RedirectView("/");
     }
