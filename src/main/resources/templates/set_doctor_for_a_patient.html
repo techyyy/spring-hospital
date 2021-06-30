@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head th:insert="fragments/head">
+  <title>Main page</title>
+</head>
+<body>
+<div th:insert="fragments/headers::admin_header"></div>
+
+<div class="container mt-5">
+  <div class="row">
+    <div class="col col-md-6" th:object="${patients}">
+      <form action="/add/appointment" method="get">
+      <div class="d-flex">
+          <div>
+            <input type="search" name="p" class="form-control rounded" placeholder="Doctor`s position" aria-label="Search" aria-describedby="search-addon"/>
+            <input type="search" name="n" class="form-control rounded mt-1" placeholder="Patient's full name'" aria-label="Search" aria-describedby="search-addon"/>
+          </div>
+          <div>
+            <button id="search-button" type="submit" class="btn btn-secondary ml-1" style="height: 80px">
+              <i class="fa fa-search"></i>
+            </button>
+          </div>
+      </div>
+      </form>
+      <form th:action="@{/add/appointment/save}" method="post">
+        <select name="doctorId" class="custom-select mt-3">
+          <option th:each="doctor : ${doctors}"
+                  th:value="${doctor.id}"
+                  th:text="${doctor.firstName}+' '+${doctor.lastName}+' / '+${doctor.position}"></option>
+        </select>
+        <select name="patientId" class="custom-select mt-3">
+          <option th:each="patient : ${patients}"
+                  th:value="${patient.id}"
+                  th:text="${patient.firstName}+' '+${patient.lastName}+' / '+${patient.birthDate}"></option>
+        </select>
+        <button class="btn btn-primary mt-2" type="submit">Submit</button>
+      </form>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

@@ -1,4 +1,4 @@
-package com.myhospital.model;
+package com.myhospital.model.entity;
 
 import javax.persistence.*;
 
@@ -23,6 +23,13 @@ public class PatientAssignment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    public PatientAssignment() {}
+
+    public PatientAssignment(Doctor doctor, Patient patient) {
+        this.doctor = doctor;
+        this.patient = patient;
+    }
 
     public Doctor getDoctor() {
         return doctor;

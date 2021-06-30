@@ -1,6 +1,6 @@
 package com.myhospital.service.impl;
 
-import com.myhospital.model.Patient;
+import com.myhospital.model.entity.Patient;
 import com.myhospital.repository.PatientRepository;
 import com.myhospital.service.PatientService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,6 +32,11 @@ public class PatientServiceImpl implements PatientService {
     }
 
     @Override
+    public List<Patient> getAllPatients() {
+        return patientRepository.findAll();
+    }
+
+    @Override
     public Optional<Patient> getPatientById(Long id) {
         return patientRepository.findById(id);
     }
@@ -39,6 +44,11 @@ public class PatientServiceImpl implements PatientService {
     @Override
     public void savePatient(Patient patient) {
         patientRepository.save(patient);
+    }
+
+    @Override
+    public void dischargePatient(Long patientId) {
+        patientRepository.dischargePatient(patientId);
     }
 
 }

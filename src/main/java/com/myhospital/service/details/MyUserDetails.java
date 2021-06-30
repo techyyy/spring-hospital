@@ -1,7 +1,7 @@
 package com.myhospital.service.details;
 
 import com.myhospital.model.Role;
-import com.myhospital.model.User;
+import com.myhospital.model.entity.User;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 

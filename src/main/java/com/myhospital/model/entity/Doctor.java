@@ -1,7 +1,8 @@
-package com.myhospital.model;
+package com.myhospital.model.entity;
+
+import com.myhospital.model.Role;
 
 import javax.persistence.*;
-import java.util.List;
 import java.util.Set;
 
 @Entity

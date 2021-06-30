@@ -1,15 +1,13 @@
 package com.myhospital.service.impl;
 
-import com.myhospital.model.Doctor;
+import com.myhospital.model.entity.Doctor;
 import com.myhospital.repository.DoctorRepository;
 import com.myhospital.service.DoctorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.security.crypto.password.Pbkdf2PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
 
@@ -31,6 +29,11 @@ public class DoctorServiceImpl implements DoctorService {
     @Override
     public Page<Doctor> getPaginatedDoctors(Pageable pageable) {
         return doctorRepository.findAll(pageable);
+    }
+
+    @Override
+    public List<Doctor> getAllDoctors() {
+        return doctorRepository.findAll();
     }
 
     @Override

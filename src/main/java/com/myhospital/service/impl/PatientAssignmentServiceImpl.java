@@ -1,6 +1,6 @@
 package com.myhospital.service.impl;
 
-import com.myhospital.model.PatientAssignment;
+import com.myhospital.model.entity.PatientAssignment;
 import com.myhospital.repository.PatientAssignmentRepository;
 import com.myhospital.service.PatientAssignmentService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,8 +26,8 @@ public class PatientAssignmentServiceImpl implements PatientAssignmentService {
     }
 
     @Override
-    public Page<PatientAssignment> getPaginatedPatientsAssignments(Long doctorId, Pageable pageable) {
-        return patientAssignmentRepository.findAllByDoctor_Id(doctorId, pageable);
+    public Page<PatientAssignment> getPaginatedPatientsAssignments(Long doctorId, Pageable pageable, boolean isDischarged) {
+        return patientAssignmentRepository.findAllByDoctor_IdAndPatient_IsDischarged(doctorId, pageable, isDischarged);
     }
 
     @Override
@@ -41,7 +41,7 @@ public class PatientAssignmentServiceImpl implements PatientAssignmentService {
     }
 
     @Override
-    public void saveMyPatient(PatientAssignment patientAssignment) {
+    public void save(PatientAssignment patientAssignment) {
         patientAssignmentRepository.save(patientAssignment);
     }
 
