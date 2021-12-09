@@ -1,6 +1,5 @@
 package com.myhospital.model.entity;
 
-import com.myhospital.model.entity.PatientAssignment;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;

@@ -11,9 +11,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
-import org.springframework.security.crypto.password.Pbkdf2PasswordEncoder;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
@@ -91,7 +94,7 @@ public class DoctorController {
     @PostMapping(value = "/add/doctor/save")
     public RedirectView insertNewDoctor(@ModelAttribute("doctor") Doctor doctor) {
         String password = doctor.getUser().getPassword();
-        doctor.getUser().setPassword(new Pbkdf2PasswordEncoder().encode(password));
+        doctor.getUser().setPassword(new BCryptPasswordEncoder().encode(password));
         doctorService.saveDoctor(doctor);
         return new RedirectView("/doctors?page=1");
     }
