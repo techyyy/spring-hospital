@@ -46,7 +46,7 @@ public class DoctorController {
     public ModelAndView getPaginatedDoctors(@RequestParam("page") int pageNumber) {
         ModelAndView mav = new ModelAndView("view_all_doctors");
         String sortingParameter = session.getAttribute("sortDoctorsBy").toString();
-        PageRequest pageable = PageRequest.of(pageNumber-1, 5, Sort.by(sortingParameter));
+        PageRequest pageable = PageRequest.of(pageNumber - 1, 5, Sort.by(sortingParameter));
         Page<Doctor> doctorPage = doctorService.getPaginatedDoctors(pageable);
         PaginationUtils.setNumberOfPages(mav, doctorPage);
         mav.addObject(DOCTORS_ATTRIBUTE, doctorPage.getContent());
@@ -58,7 +58,7 @@ public class DoctorController {
         ModelAndView modelAndView = new ModelAndView("update_doctor");
         Optional<Doctor> op = doctorService.getDoctorById(id);
         Doctor doctor;
-        if(op.isPresent()) {
+        if (op.isPresent()) {
             doctor = op.get();
             modelAndView.addObject("doctor", doctor);
         } else {
@@ -102,12 +102,12 @@ public class DoctorController {
     @GetMapping(value = "/add/appointment")
     public ModelAndView showAppointmentForm(@RequestParam("p") String position, @RequestParam("n") String fullName) {
         ModelAndView modelAndView = new ModelAndView("set_doctor_for_a_patient");
-        if(!position.isEmpty()) {
+        if (!position.isEmpty()) {
             modelAndView.addObject(DOCTORS_ATTRIBUTE, doctorService.searchByPosition(position));
         } else {
             modelAndView.addObject(DOCTORS_ATTRIBUTE, doctorService.getAllDoctors());
         }
-        if(!fullName.isEmpty()) {
+        if (!fullName.isEmpty()) {
             modelAndView.addObject("patients", patientService.searchForPatientLike(fullName));
         } else {
             modelAndView.addObject("patients", patientService.getAllPatients());
@@ -119,7 +119,7 @@ public class DoctorController {
     public RedirectView saveNewAppointment(@RequestParam("doctorId") Long doctorId, @RequestParam("patientId") Long patientId) {
         Optional<Doctor> doctorOptional = doctorService.getDoctorById(doctorId);
         Optional<Patient> patientOptional = patientService.getPatientById(patientId);
-        if(doctorOptional.isPresent() && patientOptional.isPresent()) {
+        if (doctorOptional.isPresent() && patientOptional.isPresent()) {
             PatientAssignment patientAssignment = new PatientAssignment(doctorOptional.get(), patientOptional.get());
             patientAssignmentService.save(patientAssignment);
         } else {
